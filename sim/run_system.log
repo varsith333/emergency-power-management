@@ -1,0 +1,83 @@
+
+****** xsim v2025.2 (64-bit)
+  **** SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+  **** IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+  **** SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+  **** Start of session at: Mon Oct 12 12:40:52 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source xsim.dir/epms_top_snap/xsim_script.tcl
+# xsim {epms_top_snap} -autoloadwcfg -tclbatch {sim/run_xsim.tcl}
+Time resolution is 1 ps
+source sim/run_xsim.tcl
+## open_vcd sim/waveforms/tb_epms_top.vcd
+## log_vcd  /tb_epms_top
+WARNING: [Simtcl 6-216] No such HDL Object /tb_epms_top
+## run all
+=================================================================
+ DIGITAL EMERGENCY POWER MANAGEMENT SYSTEM - regression start
+=================================================================
+--- SCENARIO 1 : normal operation on mains ---------------------
+[PASS] 685 ns : S1 available power [kW] = 12
+[PASS] 685 ns : S1 all six loads on = 111111
+[PASS] 685 ns : S1 total connected [kW] = 10
+[PASS] 685 ns : S1 generator stopped = 0
+[PASS] 685 ns : S1 source code (0=MAINS) = 0
+[PASS] 685 ns : S1 no partial shedding = 0
+[PASS] 685 ns : S1 alarm silent = 0
+--- SCENARIO 2 : mains failure, emergency on battery -----------
+[PASS] 845 ns : S2 source code (1=BATT) = 1
+[PASS] 845 ns : S2 generator auto-start = 1
+[PASS] 845 ns : S2 emergency flag = 1
+[PASS] 845 ns : S2 loads L1..L5 kept = 011111
+[PASS] 845 ns : S2 total connected [kW] = 7
+[PASS] 845 ns : S2 overload LED on = 1
+[PASS] 845 ns : S2 battery LED on = 1
+--- SCENARIO 3 : generator ready, loads restored in order -----
+[PASS] 1725 ns : S3 source code (2=GEN) = 2
+[PASS] 1725 ns : S3 all six loads back = 111111
+[PASS] 1725 ns : S3 total connected [kW] = 10
+[PASS] 1725 ns : S3 no partial shedding = 0
+[PASS] 1725 ns : S3 generator still on = 1
+--- SCENARIO 4 : mains restored, generator cool-down ----------
+[PASS] 1845 ns : S4 back on mains (0) = 0
+[PASS] 1845 ns : S4 gen runs cool-down = 1
+[PASS] 1845 ns : S4 all loads still on = 111111
+[PASS] 2245 ns : S4 generator stopped = 0
+--- SCENARIO 5 : 3-cycle mains glitch is debounced -----------
+[PASS] 2435 ns : S5 still on mains = 0
+[PASS] 2435 ns : S5 no load disturbed = 111111
+[PASS] 2435 ns : S5 no gen start = 0
+--- SCENARIO 6 : mains fail, battery 5 kW, then battery low ---
+[PASS] 2595 ns : S6 source code (1=BATT) = 1
+[PASS] 2595 ns : S6 loads L1..L4 kept = 001111
+[PASS] 2595 ns : S6 total connected [kW] = 5
+[PASS] 2635 ns : S6 low-battery LED = 1
+[PASS] 2635 ns : S6 only LOAD1 survives = 000001
+[PASS] 2635 ns : S6 total connected [kW] = 2
+--- SCENARIO 7 : generator timeout + dead battery = blackout --
+[PASS] 3355 ns : S7 source code (3=BLACK) = 3
+[PASS] 3355 ns : S7 no power available = 0
+[PASS] 3355 ns : S7 every load shed = 000000
+[PASS] 3355 ns : S7 total connected [kW] = 0
+[PASS] 3435 ns : S7 blackout tone sounding = 1
+--- SCENARIO 8 : generator starts, loads rebuilt by priority --
+[PASS] 4115 ns : S8 source code (2=GEN) = 2
+[PASS] 4115 ns : S8 all six loads back = 111111
+[PASS] 4115 ns : S8 total connected [kW] = 10
+--- SCENARIO 9 : mains restored, back to normal --------------
+[PASS] 4675 ns : S9 source code (0=MAINS) = 0
+[PASS] 4675 ns : S9 all six loads on = 111111
+[PASS] 4675 ns : S9 generator stopped = 0
+[PASS] 4675 ns : S9 alarm silent = 0
+[PASS] 4675 ns : S9 no emergency = 0
+=================================================================
+ CHECKS RUN : 45
+ ERRORS     : 0
+ RESULT     : **** ALL TESTS PASSED ****
+=================================================================
+$finish called at time : 4675 ns : File "C:/Users/user/Documents/Default Project/emergency-power-management/tb/tb_epms_top.v" Line 343
+## close_vcd
+## quit
+INFO: [Common 17-206] Exiting xsim at Mon Oct 12 12:40:53 2026...

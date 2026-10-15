@@ -1,0 +1,45 @@
+
+****** xsim v2025.2 (64-bit)
+  **** SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+  **** IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+  **** SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+  **** Start of session at: Mon Oct 12 12:40:54 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source xsim.dir/sched_snap/xsim_script.tcl
+# xsim {sched_snap} -autoloadwcfg -tclbatch {sim/run_xsim_unit.tcl}
+Time resolution is 1 ps
+source sim/run_xsim_unit.tcl
+## open_vcd sim/waveforms/tb_priority_scheduler.vcd
+## log_vcd  /tb_priority_scheduler
+WARNING: [Simtcl 6-216] No such HDL Object /tb_priority_scheduler
+## run all
+[PASS] 0 kW  -> grant=000000 granted=0 kW
+[PASS] 5 kW  -> grant=001111 granted=5 kW (exact fit)
+[PASS] 10 kW -> grant=111111 granted=10 kW (full demand)
+[PASS] 15 kW -> granted=10 kW, no shedding
+[INFO] avail= 0 kW -> grant=000000 granted= 0 kW shed=1
+[INFO] avail= 1 kW -> grant=000000 granted= 0 kW shed=1
+[INFO] avail= 2 kW -> grant=000001 granted= 2 kW shed=1
+[INFO] avail= 3 kW -> grant=000011 granted= 3 kW shed=1
+[INFO] avail= 4 kW -> grant=000111 granted= 4 kW shed=1
+[INFO] avail= 5 kW -> grant=001111 granted= 5 kW shed=1
+[INFO] avail= 6 kW -> grant=001111 granted= 5 kW shed=1
+[INFO] avail= 7 kW -> grant=011111 granted= 7 kW shed=1
+[INFO] avail= 8 kW -> grant=011111 granted= 7 kW shed=1
+[INFO] avail= 9 kW -> grant=011111 granted= 7 kW shed=1
+[INFO] avail=10 kW -> grant=111111 granted=10 kW shed=0
+[INFO] avail=11 kW -> grant=111111 granted=10 kW shed=0
+[INFO] avail=12 kW -> grant=111111 granted=10 kW shed=0
+[INFO] avail=13 kW -> grant=111111 granted=10 kW shed=0
+[INFO] avail=14 kW -> grant=111111 granted=10 kW shed=0
+[INFO] avail=15 kW -> grant=111111 granted=10 kW shed=0
+=================================================================
+ PRIORITY SCHEDULER UNIT TEST : checks=52 errors=0
+ RESULT     : **** ALL TESTS PASSED ****
+=================================================================
+$finish called at time : 20 ns : File "C:/Users/user/Documents/Default Project/emergency-power-management/tb/tb_priority_scheduler.v" Line 113
+## close_vcd
+## quit
+INFO: [Common 17-206] Exiting xsim at Mon Oct 12 12:40:56 2026...
